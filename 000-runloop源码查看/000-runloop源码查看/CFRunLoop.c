@@ -73,7 +73,7 @@ DISPATCH_EXPORT void _dispatch_main_queue_callback_4CF(void);
 #endif
 
 #if DEPLOYMENT_TARGET_WINDOWS || DEPLOYMENT_TARGET_IPHONESIMULATOR
-CF_EXPORT pthread_t _CF_pthread_main_thread_np(void);
+CF_EXPORT pthread_t _CF_pthread_main_thread_np(void);//这是一个线程
 #define pthread_main_thread_np() _CF_pthread_main_thread_np()
 #endif
 
@@ -1355,6 +1355,13 @@ static CFLock_t loopsLock = CFLockInit;
 
 // should only be called by Foundation
 // t==0 is a synonym for "main thread" that always works
+//获取Runloop的功能实现
+/*
+ 1、通过线程创建Runloop
+ 2、将线程和Runloop作为键和值存放到字典中
+ 3、在字典中通过线程获取Runloop
+ 4、判断如果获取不到Runloop，则重新创建（所以如果想要获取Runloop的时候，发现获取不到，就会通过线程来创建Runloop）
+ */
 CF_EXPORT CFRunLoopRef _CFRunLoopGet0(pthread_t t) {
     if (pthread_equal(t, kNilPthreadT)) {
         t = pthread_main_thread_np();
@@ -1362,8 +1369,11 @@ CF_EXPORT CFRunLoopRef _CFRunLoopGet0(pthread_t t) {
     __CFLock(&loopsLock);
     if (!__CFRunLoops) {
         __CFUnlock(&loopsLock);
+        //创建一个字典，用来一对一存放Runloop和线程
         CFMutableDictionaryRef dict = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, 0, NULL, &kCFTypeDictionaryValueCallBacks);
+        //通过线程创建一个Runloop-----Runloop是通过线程来创建的，也就是Runloop是基于线程的
         CFRunLoopRef mainLoop = __CFRunLoopCreate(pthread_main_thread_np());
+        //将Runloop和线程一对一的存放到字典中
         CFDictionarySetValue(dict, pthreadPointer(pthread_main_thread_np()), mainLoop);
         if (!OSAtomicCompareAndSwapPtrBarrier(NULL, dict, (void * volatile *)&__CFRunLoops)) {
             CFRelease(dict);
@@ -1371,6 +1381,7 @@ CF_EXPORT CFRunLoopRef _CFRunLoopGet0(pthread_t t) {
         CFRelease(mainLoop);
         __CFLock(&loopsLock);
     }
+    //通过线程获取Runloop
     CFRunLoopRef loop = (CFRunLoopRef)CFDictionaryGetValue(__CFRunLoops, pthreadPointer(t));
     __CFUnlock(&loopsLock);
     if (!loop) {
@@ -1479,9 +1490,11 @@ void _CFRunLoopSetCurrent(CFRunLoopRef rl) {
 }
 #endif
 
+//主Runloop的实现
 CFRunLoopRef CFRunLoopGetMain(void) {
     CHECK_FOR_FORK();
     static CFRunLoopRef __main = NULL; // no retain needed
+    //通过传入主线程，返回一个主Runloop
     if (!__main) __main = _CFRunLoopGet0(pthread_main_thread_np()); // no CAS needed
     return __main;
 }
