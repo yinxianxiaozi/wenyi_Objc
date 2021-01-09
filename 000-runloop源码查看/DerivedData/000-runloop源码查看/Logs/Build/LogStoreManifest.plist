@@ -5,6 +5,41 @@
 	<key>logFormatVersion</key>
 	<integer>10</integer>
 	<key>logs</key>
-	<dict/>
+	<dict>
+		<key>BFC363E6-02AB-4395-82B6-D4C0A35B60A1</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>BFC363E6-02AB-4395-82B6-D4C0A35B60A1.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>000-runloop源码查看 project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>000-runloop源码查看</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build 000-runloop源码查看</string>
+			<key>timeStartedRecording</key>
+			<real>631881208.08189595</real>
+			<key>timeStoppedRecording</key>
+			<real>631881209.66043699</real>
+			<key>title</key>
+			<string>Build 000-runloop源码查看</string>
+			<key>uniqueIdentifier</key>
+			<string>BFC363E6-02AB-4395-82B6-D4C0A35B60A1</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

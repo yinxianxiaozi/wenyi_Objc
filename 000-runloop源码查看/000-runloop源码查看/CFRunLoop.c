@@ -521,18 +521,19 @@ static CFTypeID __kCFRunLoopTimerTypeID = _kCFRuntimeNotATypeID;
 
 typedef struct __CFRunLoopMode *CFRunLoopModeRef;
 
+//Runloop的运行模式，通过名称来识别，这是Mode的定义
 struct __CFRunLoopMode {
     CFRuntimeBase _base;
     pthread_mutex_t _lock;    /* must have the run loop locked before locking this */
-    CFStringRef _name;
+    CFStringRef _name;                          //名称
     Boolean _stopped;
     char _padding[3];
-    CFMutableSetRef _sources0;
-    CFMutableSetRef _sources1;
-    CFMutableArrayRef _observers;
-    CFMutableArrayRef _timers;
-    CFMutableDictionaryRef _portToV1SourceMap;
-    __CFPortSet _portSet;
+    CFMutableSetRef _sources0;                  //sources0项
+    CFMutableSetRef _sources1;                  //sources1项
+    CFMutableArrayRef _observers;               //观察者
+    CFMutableArrayRef _timers;                  //定时器
+    CFMutableDictionaryRef _portToV1SourceMap;  //字典  key是mach_port_t，value是CFRunLoopSourceRef
+    __CFPortSet _portSet;            //保存所有需要监听的port，比如_wakeUpPort，_timerPort都保存在这个数组中
     CFIndex _observerMask;
 #if USE_DISPATCH_SOURCE_FOR_TIMERS
     dispatch_source_t _timerSource;
@@ -634,18 +635,19 @@ typedef struct _per_run_data {
     uint32_t ignoreWakeUps;
 } _per_run_data;
 
+//CFRunLoop的结构体
 struct __CFRunLoop {
     CFRuntimeBase _base;
     pthread_mutex_t _lock;            /* locked for accessing mode list */
     __CFPort _wakeUpPort;            // used for CFRunLoopWakeUp
     Boolean _unused;
     volatile _per_run_data *_perRunData;              // reset for runs of the run loop
-    pthread_t _pthread;
+    pthread_t _pthread;                         //RunLoop对应的线程
     uint32_t _winthread;
-    CFMutableSetRef _commonModes;
-    CFMutableSetRef _commonModeItems;
-    CFRunLoopModeRef _currentMode;
-    CFMutableSetRef _modes;
+    CFMutableSetRef _commonModes;               //存储的是字符串，记录所有标记为common的mode
+    CFMutableSetRef _commonModeItems;           //存储所有commonMode的item(source、timer、observer)
+    CFRunLoopModeRef _currentMode;              //当前运行的Mode
+    CFMutableSetRef _modes;                     //存储的是CFRunLoopModeRef
     struct _block_item *_blocks_head;
     struct _block_item *_blocks_tail;
     CFAbsoluteTime _runTime;
@@ -942,7 +944,7 @@ CF_INLINE void __CFSetValid(void *cf) {
 CF_INLINE void __CFUnsetValid(void *cf) {
     __CFBitfieldSetValue(((CFRuntimeBase *)cf)->_cfinfo[CF_INFO_BITS], 3, 3, 0);
 }
-
+//事件源的结构体
 struct __CFRunLoopSource {
     CFRuntimeBase _base;
     uint32_t _bits;
@@ -981,14 +983,15 @@ CF_INLINE void __CFRunLoopSourceUnlock(CFRunLoopSourceRef rls) {
 
 #pragma mark Observers
 
+//监听器，用来监听Runloop本身状态改变
 struct __CFRunLoopObserver {
     CFRuntimeBase _base;
     pthread_mutex_t _lock;
-    CFRunLoopRef _runLoop;
+    CFRunLoopRef _runLoop;          //所在的Runloop
     CFIndex _rlCount;
     CFOptionFlags _activities;        /* immutable */
     CFIndex _order;            /* immutable */
-    CFRunLoopObserverCallBack _callout;    /* immutable */
+    CFRunLoopObserverCallBack _callout;    /* immutable *///回调函数，每当Runloop状态发生改变，就可以通过这个回调来接收到这个变化
     CFRunLoopObserverContext _context;    /* immutable, except invalidation */
 };
 
@@ -1048,19 +1051,19 @@ static void __CFRunLoopObserverCancel(CFRunLoopObserverRef rlo, CFRunLoopRef rl,
 }
 
 #pragma mark Timers
-
+//时间源，当时间点到达时，会主动唤醒Runloop并执行回调操作
 struct __CFRunLoopTimer {
     CFRuntimeBase _base;
     uint16_t _bits;
     pthread_mutex_t _lock;
-    CFRunLoopRef _runLoop;
+    CFRunLoopRef _runLoop;  //Runloop
     CFMutableSetRef _rlModes;
     CFAbsoluteTime _nextFireDate;
     CFTimeInterval _interval;        /* immutable */
     CFTimeInterval _tolerance;          /* mutable */
     uint64_t _fireTSR;            /* TSR units */
     CFIndex _order;            /* immutable */
-    CFRunLoopTimerCallBack _callout;    /* immutable */
+    CFRunLoopTimerCallBack _callout;    /* immutable *///回调函数
     CFRunLoopTimerContext _context;    /* immutable, except invalidation */
 };
 
@@ -1384,6 +1387,12 @@ CF_EXPORT CFRunLoopRef _CFRunLoopGet0(pthread_t t) {
     //通过线程获取Runloop
     CFRunLoopRef loop = (CFRunLoopRef)CFDictionaryGetValue(__CFRunLoops, pthreadPointer(t));
     __CFUnlock(&loopsLock);
+    
+    /*
+     这里可以看出，如果是主线程会直接获取到Runloop
+     如果是子线程，会先获取，如果没有则进行创建
+     下面的创建子线程的Runloop的创建过程和主线程基本一样
+     */
     if (!loop) {
         CFRunLoopRef newLoop = __CFRunLoopCreate(t);
         __CFLock(&loopsLock);
@@ -1490,7 +1499,7 @@ void _CFRunLoopSetCurrent(CFRunLoopRef rl) {
 }
 #endif
 
-//主Runloop的实现
+//得到主线程的Runloop
 CFRunLoopRef CFRunLoopGetMain(void) {
     CHECK_FOR_FORK();
     static CFRunLoopRef __main = NULL; // no retain needed
@@ -1499,10 +1508,13 @@ CFRunLoopRef CFRunLoopGetMain(void) {
     return __main;
 }
 
+//得到当前线程的Runloop
 CFRunLoopRef CFRunLoopGetCurrent(void) {
     CHECK_FOR_FORK();
+    //这里是什么意思？
     CFRunLoopRef rl = (CFRunLoopRef)_CFGetTSD(__CFTSDKeyRunLoop);
     if (rl) return rl;
+    //这里传入的是当前线程
     return _CFRunLoopGet0(pthread_self());
 }
 
@@ -1579,6 +1591,7 @@ CF_EXPORT Boolean _CFRunLoop01(CFRunLoopRef rl, CFStringRef modeName) {
     return present;
 }
 
+//设置Runloop的一个Mode为Common，这样就将这个Mode标记为了Common
 void CFRunLoopAddCommonMode(CFRunLoopRef rl, CFStringRef modeName) {
     CHECK_FOR_FORK();
     if (__CFRunLoopIsDeallocating(rl)) return;
@@ -2688,8 +2701,10 @@ SInt32 CFRunLoopRunSpecific(CFRunLoopRef rl, CFStringRef modeName, CFTimeInterva
     return result;
 }
 
+//Runloop循环执行的代码
 void CFRunLoopRun(void) {    /* DOES CALLOUT */
     int32_t result;
+    //从这里可以看出这个是do...while循环
     do {
         result = CFRunLoopRunSpecific(CFRunLoopGetCurrent(), kCFRunLoopDefaultMode, 1.0e10, false);
         CHECK_FOR_FORK();

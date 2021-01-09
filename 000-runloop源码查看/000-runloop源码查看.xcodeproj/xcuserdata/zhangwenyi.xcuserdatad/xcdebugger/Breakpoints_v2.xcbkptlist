@@ -14,10 +14,26 @@
             filePath = "000-runloop&#x6e90;&#x7801;&#x67e5;&#x770b;/CFRunLoop.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2693"
-            endingLineNumber = "2693"
+            startingLineNumber = "2708"
+            endingLineNumber = "2708"
             landmarkName = "CFRunLoopRun()"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A42E31D5-10A5-47A6-98F9-F96E4E51AB8C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "000-runloop&#x6e90;&#x7801;&#x67e5;&#x770b;/CFRunLoop.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "640"
+            endingLineNumber = "640"
+            landmarkName = "__CFRunLoop"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
