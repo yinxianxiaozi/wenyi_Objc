@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>9069A125-90C0-4819-A707-F628124C77F7</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>9069A125-90C0-4819-A707-F628124C77F7.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>objc project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>objc</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build objc</string>
+			<key>timeStartedRecording</key>
+			<real>631870180.72496295</real>
+			<key>timeStoppedRecording</key>
+			<real>631870188.42559302</real>
+			<key>title</key>
+			<string>Build objc</string>
+			<key>uniqueIdentifier</key>
+			<string>9069A125-90C0-4819-A707-F628124C77F7</string>
+		</dict>
+		<key>F167EA75-82C2-4033-B22B-C9E2D33C1E30</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>F167EA75-82C2-4033-B22B-C9E2D33C1E30.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>objc project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>objc</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build objc</string>
+			<key>timeStartedRecording</key>
+			<real>631870196.21394098</real>
+			<key>timeStoppedRecording</key>
+			<real>631870196.41775203</real>
+			<key>title</key>
+			<string>Build objc</string>
+			<key>uniqueIdentifier</key>
+			<string>F167EA75-82C2-4033-B22B-C9E2D33C1E30</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

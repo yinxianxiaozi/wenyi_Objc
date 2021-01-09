@@ -1,0 +1,93 @@
+{
+  "headers" : [
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/hashtable.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/hashtable2.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/List.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/message.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/objc-api.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/objc-auto.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/objc-class.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/objc-exception.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/objc-load.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/objc-runtime.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/objc-sync.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/objc.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/Object.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/Protocol.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/runtime.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/NSObjCRuntime.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/include/objc/NSObject.h",
+      "type" : "public"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/local/include/objc/maptable.h",
+      "type" : "private"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/local/include/objc/objc-abi.h",
+      "type" : "private"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/local/include/objc/objc-gdb.h",
+      "type" : "private"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/local/include/objc/objc-internal.h",
+      "type" : "private"
+    },
+    {
+      "path" : "/tmp/objc.dst/usr/local/include/objc/NSObject-internal.h",
+      "type" : "private"
+    }
+  ],
+  "version" : "2"
+}

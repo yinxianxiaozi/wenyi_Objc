@@ -1,0 +1,9 @@
+{
+  "headers" : [
+    {
+      "path" : "/tmp/objc.dst/usr/local/include/objc/objc-block-trampolines.h",
+      "type" : "private"
+    }
+  ],
+  "version" : "2"
+}
